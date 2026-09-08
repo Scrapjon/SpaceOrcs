@@ -1,12 +1,6 @@
-﻿// SpaceOrcs.h : Include file for standard system include files,
-// or project specific include files.
-
-#pragma once
+﻿#pragma once
 
 #include <iostream>
 #include "inputs/InputGlobals.h"
 #include "rendering/RenderingGlobals.h"
 #include "entities/OrcShip.h"
-
-
-// TODO: Reference additional headers your program requires here.

@@ -39,6 +39,8 @@ target_link_libraries(${PROJECT_NAME} raylib)
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
+make_directory(${CMAKE_CURRENT_BINARY_DIR}/resources)
+
 add_custom_target(copy_resources
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/resources ${CMAKE_CURRENT_BINARY_DIR}/resources
 )

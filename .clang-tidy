@@ -1,0 +1,29 @@
+---
+Checks: '-*,readability-identifier-naming'
+CheckOptions:
+  # Function Naming (PascalCase)
+  - key:             readability-identifier-naming.FunctionCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.MethodCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.ConstexprFunctionCase
+    value:           CamelCase
+
+  # Variable (snake_case)
+  - key:             readability-identifier-naming.VariableCase
+    value:           snake_case
+  - key:             readability-identifier-naming.LocalVariableCase
+    value:           snake_case
+  - key:             readability-identifier-naming.ParameterCase
+    value:           snake_case
+  - key:             readability-identifier-naming.MemberCase
+    value:           snake_case
+  - key:             readability-identifier-naming.ConstexprVariableCase
+    value:           snake_case
+  - key:             readability-identifier-naming.GlobalVariableCase
+    value:           snake_case
+  - key:             readability-identifier-naming.ClassMemberCase
+    value:           snake_case
+  - key:             readability-identifier-naming.StaticVariableCase
+    value:           snake_case
+...

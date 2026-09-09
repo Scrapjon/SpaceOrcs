@@ -1,37 +1,41 @@
-﻿// SpaceOrcs.cpp : Defines the entry point for the application.
-//
+﻿#include <raylib.h>
+#include <iostream>
+static struct {
+	const char* text = "Space Orcs";
+	Vector2 position = {400, 400};
+	Font font = GetFontDefault();
+	float fontSize = 20;
+	float spacing = 5;
+	Color color = GREEN;
+} title;
 
-#include "SpaceOrcs.h"
 
-using namespace std;
 
 int main()
-{
-	InitWindow(screenData.screenWidth, screenData.screenHeight, "Space Orcs");
-	SetTargetFPS(screenData.targetFrameRate);
+{	
+	InitWindow(800, 800, title.text);
+	SetTargetFPS(60);
 
-	OrcShip orcShip = { {static_cast<float>(screenData.screenWidth / 2), static_cast<float>(screenData.screenHeight / 2)} };
-	
-	while (!WindowShouldClose()) {
+	const Vector2 titleSize = MeasureTextEx(GetFontDefault(), title.text, title.fontSize, title.spacing);
+		
+	title.position = [titleSize]() {
+		const Vector2 scaled = Vector2(titleSize.x * 0.5, titleSize.y * 0.5);
+		const Vector2 diff = Vector2(title.position.x - scaled.x, title.position.y - scaled.y);
+		return diff;
+	}();
+
+
+	while (true) {
 		BeginDrawing();
-
 		ClearBackground(BLACK);
 
-		auto keysDown = input::GetKeysDown();
-
-		for (auto key : keysDown) {
-			cout << key << "\n";
-		}
-
-		orcShip.Draw();
-
-		Vector2 shipWorldSpace = ToWorldSpace(orcShip.location);
-		cout << "Unaltered Location: " << orcShip.location.x << " " << orcShip.location.y << "\n";
-		cout << "World Space: " << shipWorldSpace.x << " " << shipWorldSpace.y << "\n";
-		cout << "Screen Space: " << ToScreenSpace(shipWorldSpace).x << " " << ToScreenSpace(shipWorldSpace).y << "\n";
+		
+		std::cout << title.position.x << " " << title.position.y;
+		DrawTextEx(title.font, title.text, title.position, title.fontSize, title.spacing, title.color);
 
 		EndDrawing();
+
 	}
-	
+
 	return 0;
 }

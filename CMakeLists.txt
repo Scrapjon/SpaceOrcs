@@ -30,11 +30,15 @@ set(BUILD_EXAMPLES OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(raylib)
 
 
+set(SOURCES
+"src/SpaceOrcs.cpp"
+
+)
+
 
 # Add source to this project's executable.
-add_executable (${PROJECT_NAME} "src/SpaceOrcs.cpp" "include/SpaceOrcs.h" "include/rendering/RenderingGlobals.h" "include/inputs/InputGlobals.h" "include/entities/Ship.h" "src/entities/Ship.cpp" "include/entities/Projectile.h" "src/entities/Projectile.cpp" "include/entities/OrcShip.h")
+add_executable (${PROJECT_NAME} ${SOURCES})
 include_directories("src")
-include_directories("include")
 target_link_libraries(${PROJECT_NAME} raylib)
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)

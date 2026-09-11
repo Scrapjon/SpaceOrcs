@@ -32,7 +32,7 @@ FetchContent_MakeAvailable(raylib)
 
 set(SOURCES
 "src/SpaceOrcs.cpp"
-
+"src/Math.h"
 )
 
 

@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"3429900aae925e95","x":380,"y":-640,"width":250,"height":60,"type":"text","text":"# Player"},
+		{"id":"784be635349a54a0","x":160,"y":-880,"width":250,"height":60,"type":"text","text":"# Ship"},
+		{"id":"6204393bf4843644","x":-480,"y":-930,"width":250,"height":230,"type":"text","text":"# Game\n```lisp\n\n```"},
+		{"id":"138b8cc00691c889","x":80,"y":-640,"width":250,"height":60,"type":"text","text":"# EnemyBase"},
+		{"id":"8201e72d5e374d89","x":-920,"y":-985,"width":250,"height":210,"type":"text","text":"# Audio Engine\n```lisp\n\n```\n\nSingleton Object"},
+		{"id":"f898b833b964bf7e","x":740,"y":-1120,"width":250,"height":60,"type":"text","text":"# Legend\n"},
+		{"id":"286f2c3435ecbba6","x":740,"y":-980,"width":250,"height":120,"color":"1","type":"text","text":"Arrows of this colour denote that an object is derived from the origin"},
+		{"id":"34c2063322b4f6ef","type":"text","text":"Arrows of this colour denote that an object references but does not contain the object at the origin","x":1020,"y":-980,"width":250,"height":120,"color":"6"}
+	],
+	"edges":[
+		{"id":"3aa4b1bdd9df9367","fromNode":"784be635349a54a0","fromSide":"bottom","toNode":"3429900aae925e95","toSide":"top","color":"1"},
+		{"id":"13bc4ee910900570","fromNode":"8201e72d5e374d89","fromSide":"right","toNode":"6204393bf4843644","toSide":"left","color":"6"},
+		{"id":"2833cabf09a053bb","fromNode":"784be635349a54a0","fromSide":"bottom","toNode":"138b8cc00691c889","toSide":"top","color":"1"},
+		{"id":"c5c965cc8c85a63c","fromNode":"f898b833b964bf7e","fromSide":"bottom","toNode":"286f2c3435ecbba6","toSide":"top","color":"1"},
+		{"id":"79145682ef5f12ba","fromNode":"f898b833b964bf7e","fromSide":"bottom","toNode":"34c2063322b4f6ef","toSide":"top","color":"6"}
+	]
+}

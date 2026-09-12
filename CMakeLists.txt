@@ -31,8 +31,27 @@ FetchContent_MakeAvailable(raylib)
 
 
 set(SOURCES
-"src/SpaceOrcs.cpp"
-"src/Math.h"
+
+# Common
+"src/Main.cpp"
+"src/OrcMath.h"
+
+# Audio
+"src/Audio/AudioEngine.h"
+"src/Audio/AudioEngine.cpp"
+
+# Game
+"src/Game.h"
+"src/Game.cpp"
+
+#Entities
+"src/Entities/Entity.h"
+"src/Entities/Entity.cpp"
+"src/Entities/Ship.h"
+"src/Entities/Ship.cpp"
+"src/EntityManager.h"
+"src/EntityManager.cpp"
+
 )
 
 

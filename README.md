@@ -1,6 +1,6 @@
 # Space Orcs
 
-tasks.json (template):
+.vscode/tasks.json (template):
 ```json
 {
     "version": "2.0.0",

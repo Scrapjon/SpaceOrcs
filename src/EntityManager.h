@@ -1,20 +1,32 @@
 #pragma once
 #include "Entities/Entity.h"
+#include <chrono>
 #include <concepts>
 #include <iostream>
-#include <list>
 #include <memory>
+#include <thread>
 #include <type_traits>
+#include <vector>
 
 template <typename T>
 concept EntityType = std::is_base_of_v<Entity, T>;
 
 class EntityManager {
 public:
-	template <EntityType E, typename... Args>
-	std::shared_ptr<Entity> SpawnEntity (Args &&...args)
+	EntityManager ()
 	{
-		std::shared_ptr<Entity> new_entity = std::make_unique<E> (std::forward<Args> (args)...);
+		StartGarbageCollection ();
+	}
+
+	~EntityManager ()
+	{
+		EndGarbageCollection ();
+	}
+
+	template <EntityType E, typename... Args>
+	std::shared_ptr<E> SpawnEntity (Args &&...args)
+	{
+		std::shared_ptr<E> new_entity = std::make_shared<E> (std::forward<Args> (args)...);
 		m_entities.push_back (new_entity);
 		return new_entity;
 	}
@@ -22,25 +34,33 @@ public:
 	// TODO: think of a better name
 	void CleanUpEntities ()
 	{
+		std::erase_if (m_entities, [] (const std::shared_ptr<Entity> &entity) {
+			return entity->IsPendingKill ();
+		});
+	}
 
-		using Iterator = decltype (m_entities)::iterator;
+	// Again, terrible name. do better!
+	void StartGarbageCollection ()
+	{
+		m_gc_running = true;
+		m_gc_thread	 = std::thread (
+			[this] () {
+				while (m_gc_running) {
+					CleanUpEntities ();
+					std::cout << "Tick" << "\n";
+					std::this_thread::sleep_for (std::chrono::seconds (1));
+				}
+			});
+	}
 
-		for (Iterator it = m_entities.begin (); it != m_entities.end ();) {
-			std::weak_ptr<Entity> entity = *it;
-
-			if (entity.expired ()) {
-				it = m_entities.erase (it);
-				continue;
-			}
-
-			if (entity.lock ()->IsPendingKill ()) {
-				it = m_entities.erase (it);
-				continue;
-			}
-			++it;
-		}
+	void EndGarbageCollection ()
+	{
+		m_gc_running = false;
+		m_gc_thread.join ();
 	}
 
 private:
-	std::list<std::shared_ptr<Entity>> m_entities = {};
+	std::vector<std::shared_ptr<Entity>> m_entities	  = {};
+	volatile bool						 m_gc_running = false;
+	std::thread							 m_gc_thread;
 };

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <memory>
 #include <raylib.h>
+#include <thread>
 #include <vector>
 
 #define GAME_TITLE "Space Orcs: Orcs from Space"
@@ -19,6 +20,10 @@ private:
 		InitWindow (800, 800, GAME_TITLE);
 		SetTargetFPS (m_fps);
 		m_entity_manager.SpawnEntity<Ship> ();
+	}
+
+	~Game ()
+	{
 	}
 
 	float		  m_fps			   = 60;

@@ -2,9 +2,9 @@
 #include "Entities/Entity.h"
 #include <concepts>
 #include <iostream>
+#include <list>
 #include <memory>
 #include <type_traits>
-#include <vector>
 
 template <typename T>
 concept EntityType = std::is_base_of_v<Entity, T>;
@@ -29,12 +29,12 @@ public:
 			std::weak_ptr<Entity> entity = *it;
 
 			if (entity.expired ()) {
-				m_entities.erase (it);
+				it = m_entities.erase (it);
 				continue;
 			}
 
 			if (entity.lock ()->IsPendingKill ()) {
-				m_entities.erase (it);
+				it = m_entities.erase (it);
 				continue;
 			}
 			++it;
@@ -42,5 +42,5 @@ public:
 	}
 
 private:
-	std::vector<std::shared_ptr<Entity>> m_entities = {};
+	std::list<std::shared_ptr<Entity>> m_entities = {};
 };

@@ -19,7 +19,7 @@ public:
 		return new_entity;
 	}
 
-	// TODO: think of a better name, also maybe use a std::list instead bc std::erase can get expensive (I believe this is already O(n^2), yeesh)
+	// TODO: think of a better name
 	void CleanUpEntities ()
 	{
 

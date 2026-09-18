@@ -29,14 +29,16 @@ private:
 	float		  m_fps			   = 60;
 	bool		  m_should_quit	   = false;
 	EntityManager m_entity_manager = {};
+	
 
 public:
-	static Camera2D camera;
-
+	
+	Camera2D camera = {};
+	
 	Game (const Game &)			   = delete;
 	Game &operator= (const Game &) = delete;
 
-	static Game &getInstance ()
+	static Game &GetInstance ()
 	{
 		static Game instance;
 		return instance;

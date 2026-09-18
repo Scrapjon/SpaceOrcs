@@ -5,7 +5,7 @@
             "name": "spaceorcs-gcc",
             "displayName": "SpaceOrcs GCC",
             "description": "Using compilers: C = g++.exe",
-            "generator": "MinGW Makefiles",
+            "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",

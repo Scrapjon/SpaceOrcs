@@ -11,7 +11,6 @@ public:
 
 	virtual void Tick (float delta_time)
 	{
-		Draw ();
 	}
 
 	virtual void Draw () = 0;

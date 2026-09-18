@@ -3,15 +3,17 @@
 #include <cmath>
 #include <raylib.h>
 
-struct Vector2D : Vector2 {
+struct Vector2D{
 
-	constexpr Vector2D (float x, float y) : Vector2 (x, y)
+	float x{}, y{};
+
+	constexpr Vector2D (float x, float y) : x(x), y(y)
 	{
 	}
-	constexpr Vector2D (float flat) : Vector2 (flat, flat)
+	constexpr Vector2D (float flat) : x(flat), y(flat)
 	{
 	}
-	constexpr Vector2D (Vector2 other) : Vector2 (other)
+	constexpr Vector2D (Vector2 vec) : x(vec.x), y(vec.y)
 	{
 	}
 
@@ -47,6 +49,10 @@ struct Vector2D : Vector2 {
 	constexpr Vector2D operator/ (float rhs) const
 	{
 		return Vector2D (x / rhs, y / rhs);
+	}
+
+	constexpr operator Vector2() {
+		return Vector2{x, y};
 	}
 
 	constexpr inline float Dot (const Vector2D &rhs)

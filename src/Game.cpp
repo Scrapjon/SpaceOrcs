@@ -1,10 +1,14 @@
 #include "Game.h"
 
-Camera2D Game::camera = {};
-
 void Game::Tick ()
 {
-	HandleInputs (GetDeltaTime ());
+	float delta_time = GetDeltaTime();
+	HandleInputs (delta_time);
+
+	for (std::weak_ptr<Entity> entity : m_entity_manager.GetEntities()) {
+		entity.lock()->Tick(delta_time);
+	}
+
 	Draw ();
 }
 
@@ -46,6 +50,10 @@ void Game::Draw ()
 	BeginMode2D (camera);
 
 	ClearBackground (BLACK);
+
+	for (std::weak_ptr<Entity> entity : m_entity_manager.GetEntities()) {
+		entity.lock()->Draw();
+	}
 
 	EndMode2D ();
 

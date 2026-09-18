@@ -6,7 +6,7 @@ int main ()
 {
 
 	while (true) {
-		Game &game = Game::getInstance ();
+		Game &game = Game::GetInstance ();
 		game.Tick ();
 		if (game.ShouldQuit ())
 			break;

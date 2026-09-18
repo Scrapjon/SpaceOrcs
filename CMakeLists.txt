@@ -22,7 +22,7 @@ project ("SpaceOrcs")
 
 
 
-set(RAYLIB_VERSION 5.5)
+set(RAYLIB_VERSION 6.0)
 
 FetchContent_Declare(
 	raylib

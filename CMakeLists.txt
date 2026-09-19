@@ -40,6 +40,7 @@ set(SOURCES
 # Common
 "src/Main.cpp"
 "src/OrcMath.h"
+"src/OrcMath.cpp"
 
 # Audio
 "src/Audio/AudioEngine.h"
@@ -49,13 +50,17 @@ set(SOURCES
 "src/Game.h"
 "src/Game.cpp"
 
-#Entities
+# Entities
 "src/Entities/Entity.h"
 "src/Entities/Entity.cpp"
 "src/Entities/Ship.h"
 "src/Entities/Ship.cpp"
 "src/EntityManager.h"
 "src/EntityManager.cpp"
+
+# Player
+"src/Entities/Player.h"
+"src/Entities/Player.cpp"
 
 )
 

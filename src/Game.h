@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Audio/AudioEngine.h"
+#include "Entities/Player.h"
 #include "Entities/Ship.h"
 #include "EntityManager.h"
 #include "OrcMath.h"
@@ -19,22 +20,23 @@ private:
 	{
 		InitWindow (800, 800, GAME_TITLE);
 		SetTargetFPS (m_fps);
-		m_entity_manager.SpawnEntity<Ship> ();
+		camera.zoom = 1;
+
+		m_player = m_entity_manager.SpawnEntity<Player> ();
 	}
 
 	~Game ()
 	{
 	}
 
-	float		  m_fps			   = 60;
-	bool		  m_should_quit	   = false;
-	EntityManager m_entity_manager = {};
-	
+	float					m_fps		  = 60;
+	bool					m_should_quit = false;
+	std::shared_ptr<Player> m_player;
+	EntityManager			m_entity_manager = {};
 
 public:
-	
 	Camera2D camera = {};
-	
+
 	Game (const Game &)			   = delete;
 	Game &operator= (const Game &) = delete;
 
@@ -54,7 +56,13 @@ public:
 		return GetFrameTime ();
 	}
 
-	void Tick ();
+	// Returns a weak pointer to player
+	inline std::weak_ptr<Player> GetPlayer ()
+	{
+		return m_player;
+	}
+
+	void Update ();
 
 	void HandleInputs (float delta_time);
 

@@ -15,12 +15,12 @@ class EntityManager {
 public:
 	EntityManager ()
 	{
-		StartGarbageCollection ();
+		// StartGarbageCollection ();
 	}
 
 	~EntityManager ()
 	{
-		EndGarbageCollection ();
+		// EndGarbageCollection ();
 	}
 
 	template <EntityType E, typename... Args>
@@ -32,25 +32,26 @@ public:
 	}
 
 	/*
-		I would like a more efficient way to do this without creating a copy each time I call this 
+		I would like a more efficient way to do this without creating a copy each time I call this
 		but it's the only way to enforce weak_ptr by default
 
-		Probably would be worth even making it shared by default however I want the EntityManager to be the source of truth for 
+		Probably would be worth even making it shared by default however I want the EntityManager to be the source of truth for
 		lifetimes, while still allowing for locking so that functions can extend the lifetime until they are done with the object.
 
 	*/
-	std::vector<std::weak_ptr<Entity>> GetEntities() const { 
+	std::vector<std::weak_ptr<Entity>> GetEntities () const
+	{
 		std::vector<std::weak_ptr<Entity>> weak_entities;
-		weak_entities.reserve(m_entities.size());
+		weak_entities.reserve (m_entities.size ());
 		for (std::weak_ptr<Entity> weak_entity : m_entities) {
-			weak_entities.push_back(weak_entity);
+			weak_entities.push_back (weak_entity);
 		}
 
 		return weak_entities;
 	}
 
 	/* 	TODO: think of a better name
-		Also maybe rethink having this as a threaded thing. Could probably be more of a performance hit having it this way 
+		Also maybe rethink having this as a threaded thing. Could probably be more of a performance hit having it this way
 		with a mutex than having it just on the main thread.
 	*/
 	void CleanUpEntities ()
@@ -68,7 +69,7 @@ public:
 			[this] () {
 				while (m_gc_running) {
 					CleanUpEntities ();
-					std::cout << "Tick" << "\n";
+					std::cout << "Update" << "\n";
 					std::this_thread::sleep_for (std::chrono::seconds (1));
 				}
 			});
@@ -84,6 +85,6 @@ public:
 
 private:
 	std::vector<std::shared_ptr<Entity>> m_entities	  = {};
-	volatile bool						 m_gc_running = false;
+	std::atomic<bool>					 m_gc_running = false;
 	std::thread							 m_gc_thread;
 };

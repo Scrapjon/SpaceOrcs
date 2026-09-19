@@ -7,7 +7,7 @@ int main ()
 
 	while (true) {
 		Game &game = Game::GetInstance ();
-		game.Tick ();
+		game.Update ();
 		if (game.ShouldQuit ())
 			break;
 	}

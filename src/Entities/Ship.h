@@ -5,13 +5,12 @@
 
 class Ship : public Entity {
 public:
-	virtual void Tick (float delta_time) override
+	Ship (float width = 100.f, float height = 100.f) : Entity ()
 	{
-		Entity::Tick (delta_time);
+		SetBounds (width, height);
 	}
+	~Ship () = default;
+	virtual void Update (float delta_time) override;
 
-	virtual void Draw () override
-	{
-		DrawRectangle (location.x, location.y, 10, 10, RED);
-	}
+	virtual void Draw () override;
 };

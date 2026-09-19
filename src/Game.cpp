@@ -1,38 +1,42 @@
 #include "Game.h"
 
-void Game::Tick ()
+void Game::Update ()
 {
-	float delta_time = GetDeltaTime();
+	float delta_time = GetDeltaTime ();
 	HandleInputs (delta_time);
 
-	for (std::weak_ptr<Entity> entity : m_entity_manager.GetEntities()) {
-		entity.lock()->Tick(delta_time);
+	for (std::weak_ptr<Entity> entity : m_entity_manager.GetEntities ()) {
+		entity.lock ()->Update (delta_time);
 	}
 
 	Draw ();
+
+	m_entity_manager.CleanUpEntities ();
 }
 
 void Game::HandleInputs (float delta_time)
 {
 	if (IsKeyDown (KEY_RIGHT)) {
-		camera.target.x += 10 * delta_time;
+		m_player->location.x += 10 * delta_time;
 	}
 	else if (IsKeyDown (KEY_LEFT)) {
-		camera.target.x -= 10 * delta_time;
+		m_player->location.x -= 10 * delta_time;
 	}
 
 	if (IsKeyDown (KEY_UP)) {
-		camera.target.y -= 10 * delta_time;
+		m_player->location.y += 10 * delta_time;
 	}
 	else if (IsKeyDown (KEY_DOWN)) {
-		camera.target.y += 10 * delta_time;
+		m_player->location.y -= 10 * delta_time;
 	}
 
 	if (IsKeyDown (KEY_LEFT_SHIFT)) {
 		camera.zoom += 0.1 * delta_time;
+		std::cout << camera.zoom << "\n";
 	}
 	else if (IsKeyDown (KEY_LEFT_CONTROL)) {
 		camera.zoom -= 0.1 * delta_time;
+		std::cout << camera.zoom << "\n";
 	}
 
 	if (IsKeyDown (KEY_ESCAPE)) {
@@ -51,8 +55,8 @@ void Game::Draw ()
 
 	ClearBackground (BLACK);
 
-	for (std::weak_ptr<Entity> entity : m_entity_manager.GetEntities()) {
-		entity.lock()->Draw();
+	for (std::weak_ptr<Entity> entity : m_entity_manager.GetEntities ()) {
+		entity.lock ()->Draw ();
 	}
 
 	EndMode2D ();

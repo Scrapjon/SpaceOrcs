@@ -6,11 +6,15 @@
 
 class Entity {
 public:
-	Entity () = default;
+	Entity (Vector2D location = { 0, 0 }) : location (location)
+	{
+	}
+
 	Vector2D location{ 0, 0 };
 
-	virtual void Tick (float delta_time)
+	virtual void Update (float delta_time)
 	{
+		UpdateBounds ();
 	}
 
 	virtual void Draw () = 0;
@@ -25,6 +29,16 @@ public:
 		return m_pending_kill;
 	}
 
+	void SetBounds (const float width, const float height);
+
+	void UpdateBounds ();
+
+	inline Rectangle GetBounds ()
+	{
+		return m_bounds;
+	}
+
 private:
-	bool m_pending_kill = false;
+	bool	  m_pending_kill = false;
+	Rectangle m_bounds;
 };
